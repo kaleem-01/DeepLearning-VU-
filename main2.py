@@ -4,6 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 from elman_rnn import Elman
+from tqdm import tqdm  # Import tqdm for the progress bar
 
 (x_train, y_train), (x_val, y_val), (i2w, w2i), numcls = load_imdb(final=False)
 
@@ -108,7 +109,27 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
     model.train()
     total_loss = 0
 
-    for batch_x, batch_y in dataloader:
+    progress_bar = tqdm(dataloader, desc="Training", leave=True)
+    
+
+    # for batch_x, batch_y in dataloader:
+    #     print("batch_x.size(): ", batch_x.size())
+    #     print("batch_y.size(): ", batch_y.size())
+    #     print(f"batch_x type: {type(batch_x)}")
+    #     print(f"batch_y type: {type(batch_y)}")
+    # for batch_idx, (batch_x, batch_y) in enumerate(progress_bar):
+    for batch_x, batch_y in progress_bar:
+        # print(f"batch_x type in PROGRESS BAR: {type(batch_x)}")
+        # print(f"batch_y type IN PROGRESS BAR: {type(batch_y)}")
+        # cnmdoen
+        # if not isinstance(batch_x, torch.Tensor):
+        #     print(f"Unexpected batch_x type: {type(batch_x)}")
+        #     continue
+
+        # if not isinstance(batch_y, torch.Tensor):
+        #     print(f"Unexpected batch_y type: {type(batch_y)}")
+        #     continue
+
         # Move data to device
         batch_x, batch_y = batch_x.to(device), batch_y.to(device)
 
@@ -116,15 +137,15 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
         print("batch_x.shape: ", batch_x.shape)
         print("batch_x.size(): ", batch_x.size())
         outputs = model(batch_x)
-        print("outputs.size(): ", outputs.size()) #Elman: torch.Size([64, 2514, 300]), torch.Size([64, 2514, 2])
-        print("batch_y.size(): ", batch_y.size()) #torch.Size([64])
-        print("outputs[0][0][0]: ", outputs[0][0][0])
-        print("batch_y[0]: ", batch_y[0])
+        # print("outputs.size(): ", outputs.size()) #Elman: torch.Size([64, 2514, 300]), torch.Size([64, 2514, 2])
+        # print("batch_y.size(): ", batch_y.size()) #torch.Size([64])
+        # print("outputs[0][0][0]: ", outputs[0][0][0])
+        # print("batch_y[0]: ", batch_y[0])
         outputs = outputs.permute(0, 2, 1)
-        print("outputs.size() after permute: ", outputs.size())
+        # print("outputs.size() after permute: ", outputs.size())
         outputs = outputs.reshape(-1, outputs.size(0))
         outputs = outputs.permute(1, 0)
-        print("outputs.size() after reshape....: ", outputs.size())
+        # print("outputs.size() after reshape....: ", outputs.size())
         # batch_y = batch_y.unsqueeze(1).repeat(1, outputs.size(1))
         loss = loss_fn(outputs, batch_y)
 
@@ -134,6 +155,16 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
         optimizer.step()
 
         total_loss += loss.item()
+
+        # # Update progress bar
+        # progress_bar.set_postfix(loss=loss.item())
+        # Update progress bar with tensor details
+        progress_bar.set_postfix(
+            loss=loss.item(),
+            input_shape=batch_x.shape,
+            output_shape=outputs.shape,
+            label_shape=batch_y.shape
+        )
 
     return total_loss / len(dataloader)
 
@@ -177,7 +208,7 @@ def main():
     # Hyperparameters
     batch_size = 64
     learning_rate = 0.001
-    num_epochs = 10  # Train for at least one epoch
+    num_epochs = 1  # Train for at least one epoch
 
     # Prepare data loaders
     train_loader = prepare_data(x_train, y_train, w2i, batch_size)
@@ -202,10 +233,10 @@ def main():
     # Training and validation
     for epoch in range(num_epochs):
         train_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device)
-        val_accuracy = evaluate(model, val_loader, device)
 
         print(f"Epoch {epoch+1}/{num_epochs}")
         print(f"Training Loss: {train_loss:.4f}")
+        val_accuracy = evaluate(model, val_loader, device)
         print(f"Validation Accuracy: {val_accuracy:.2%}")
 
 

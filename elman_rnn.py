@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+
 class Elman(nn.Module):
     def __init__(self, insize=300, outsize=300, hsize=300):
         super(Elman, self).__init__()
@@ -16,7 +17,8 @@ class Elman(nn.Module):
         outs = []
         for i in range(t):
             inp = torch.cat([x[:, i, :], hidden], dim=1)
-            hidden = F.relu(self.lin1(inp))
+            inp1 = self.lin1(inp)
+            hidden = F.relu(inp1)
             # hidden = torch.tanh(self.lin1(inp))
             # hidden = F.dropout(hidden, p=0.5)
             out = self.lin2(hidden)
