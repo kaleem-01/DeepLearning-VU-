@@ -21,11 +21,11 @@ class RNN(nn.Module):
         """
         super(RNN, self).__init__()
         self.embedding = nn.Embedding(vocab_size, emb_dim, padding_idx=pad_idx)
-        self.linear1 = nn.Linear(emb_dim, hidden_dim)
+        # self.linear1 = nn.Linear(emb_dim, hidden_dim)
         self.relu = nn.ReLU()
-        self.linear2 = Elman(insize=hidden_dim, outsize=hidden_dim, hsize=hidden_dim)
-        self.linear3 = nn.Linear(hidden_dim, num_classes)
-    
+        self.linear1 = Elman(insize=emb_dim, outsize=hidden_dim, hsize=hidden_dim)
+        self.linear2 = nn.Linear(hidden_dim, num_classes)
+
     def forward(self, x):
         """
         Forward pass through the network.
@@ -39,19 +39,19 @@ class RNN(nn.Module):
         # Step 1: Embedding layer
         x = self.embedding(x)  # Output shape: (batch, time, emb)
         
-        # Step 2: Linear transformation
-        x = self.linear1(x)  # Output shape: (batch, time, hidden)
+        # # Step 2: Linear transformation
+        # x = self.linear1(x)  # Output shape: (batch, time, hidden)
         
-        # Step 3: ReLU activation
-        x = self.relu(x)  # Output shape: (batch, time, hidden)
-        print("x.size() after relu: ", x.size())
+        # # Step 3: ReLU activation
+        # x = self.relu(x)  # Output shape: (batch, time, hidden)
+        # print("x.size() after relu: ", x.size())
         # # Step 4: Global max pooling along the time dimension
         # x = torch.max(x, dim=1)[0]  # Output shape: (batch, hidden)
         # print("x.size() after max pooling: ", x.size())
         # Step 5: Linear projection to number of classes
-        o_l2,h = self.linear2(x) 
+        o_l2,h = self.linear1(x) 
 
-        output = self.linear3(o_l2)  # Output shape: (batch, num_classes)
+        output = self.linear2(o_l2)  # Output shape: (batch, num_classes)
 
         
         return output

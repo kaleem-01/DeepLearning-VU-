@@ -12,7 +12,7 @@ class Elman(nn.Module):
     def forward(self, x, hidden=None):
         b, t, e = x.size()
         if hidden is None:
-            hidden = torch.zeros(b, e, dtype=torch.float)
+            hidden = torch.zeros(b, e, dtype=torch.float).to(x.device) 
 
         outs = []
         for i in range(t):
