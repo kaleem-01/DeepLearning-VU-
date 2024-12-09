@@ -165,7 +165,8 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
             output_shape=outputs.shape,
             label_shape=batch_y.shape
         )
-
+        # print(total_loss)
+        # print(len(dataloader))
     return total_loss / len(dataloader)
 
 
@@ -207,7 +208,7 @@ def evaluate(model, dataloader, device):
 def main():
     # Hyperparameters
     batch_size = 64
-    learning_rate = 0.001
+    learning_rate = 0.05
     num_epochs = 1  # Train for at least one epoch
 
     # Prepare data loaders
@@ -216,6 +217,7 @@ def main():
 
     # Initialize model, optimizer, and loss function
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print("device: ", device)
     vocab_size = len(w2i)
     print("vocab_size: ", vocab_size)
     emb_dim = 300

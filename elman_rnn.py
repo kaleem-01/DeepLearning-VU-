@@ -9,6 +9,7 @@ class Elman(nn.Module):
         super(Elman, self).__init__()
         self.lin1 = nn.Linear(insize + hsize, hsize)
         self.lin2 = nn.Linear(hsize, outsize)
+        
     def forward(self, x, hidden=None):
         b, t, e = x.size()
         if hidden is None:
