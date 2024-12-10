@@ -123,8 +123,8 @@ def evaluate(model, dataloader, device):
 # ---------------------------------------------------------------------------
 def main():
     # Hyperparameters
-    batch_size = 64
-    learning_rate = 0.001
+    batch_size = 120
+    learning_rate = 0.01
     num_epochs = 1
 
     # Prepare data loaders
