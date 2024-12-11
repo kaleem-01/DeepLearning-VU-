@@ -65,10 +65,10 @@ class Elman_scratch_RNN(nn.Module):
     
 
 class Elman_torch_RNN(nn.Module):
-    def __init__(self, vocab_size, emb_dim, hidden_dim, num_classes, pad_idx):
+    def __init__(self, vocab_size, emb_dim, hidden_dim, num_classes, pad_idx, num_layers=1):
         super(Elman_torch_RNN, self).__init__()
         self.embedding = nn.Embedding(vocab_size, emb_dim, padding_idx=pad_idx)
-        self.rnn = nn.RNN(insize=emb_dim, outsize=hidden_dim, hsize=hidden_dim)
+        self.rnn = nn.RNN(emb_dim, hidden_dim, hidden_dim)
         self.linear2 = nn.Linear(hidden_dim, num_classes)
 
     def forward(self, x):
@@ -257,14 +257,14 @@ def train_rnn(batch_size, learning_rate, num_epochs, nn_type):
     print(f"Using device: {device}")
     vocab_size = len(w2i)
     emb_dim = 300
-    hidden_dim = 300
+    hidden_dim = 128
     num_classes = numcls
     pad_idx = w2i[".pad"]
 
     if nn_type == "elman_scratch":
         model = Elman_scratch_RNN(vocab_size, emb_dim, hidden_dim, num_classes, pad_idx).to(device)
     elif nn_type == "elman_torch":
-        model = Elman_torch_RNN(vocab_size, emb_dim, hidden_dim, num_classes, pad_idx).to(device)
+        model = Elman_torch_RNN(vocab_size, emb_dim, hidden_dim, num_classes, pad_idx, num_layers=1).to(device)
     elif nn_type == "lstm":
         model = lstm_RNN(vocab_size, emb_dim, hidden_dim, num_classes, pad_idx, num_layers_lstm=1).to(device)
     elif nn_type == "mlp":
