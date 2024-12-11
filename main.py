@@ -155,7 +155,7 @@ def evaluate(model, dataloader, device):
 
 def main():
     # Hyperparameters
-    batch_size = 64
+    batch_size = 248
     learning_rate = 0.001
     num_epochs = 10  # Train for at least one epoch
 
