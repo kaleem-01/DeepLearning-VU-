@@ -8,3 +8,13 @@
 {"target": 0.8718, "params": {"batch_size": 35.503162244953764, "learning_rate": 0.001387731673571444, "num_epochs": 5.0}, "datetime": {"datetime": "2024-12-11 12:48:12", "elapsed": 358.039722, "delta": 87.011701}}
 {"target": 0.8424, "params": {"batch_size": 127.92178454987881, "learning_rate": 0.001243602453405905, "num_epochs": 1.0003909756813703}, "datetime": {"datetime": "2024-12-11 12:48:27", "elapsed": 373.035757, "delta": 14.996035}}
 {"target": 0.7976, "params": {"batch_size": 40.410141101745296, "learning_rate": 0.009, "num_epochs": 1.0}, "datetime": {"datetime": "2024-12-11 12:48:48", "elapsed": 393.164384, "delta": 20.128627}}
+{"target": 0.7578, "params": {"batch_size": 32.0, "learning_rate": 0.004860718531245917, "num_epochs": 2.5857158971342553}, "datetime": {"datetime": "2024-12-11 12:49:44", "elapsed": 449.544286, "delta": 56.379902}}
+{"target": 0.871, "params": {"batch_size": 58.13914632638689, "learning_rate": 0.0015056706690210174, "num_epochs": 3.956619868591777}, "datetime": {"datetime": "2024-12-11 12:50:44", "elapsed": 509.506931, "delta": 59.962645}}
+{"target": 0.8442, "params": {"batch_size": 53.842822274292985, "learning_rate": 0.009, "num_epochs": 5.0}, "datetime": {"datetime": "2024-12-11 12:51:58", "elapsed": 583.972424, "delta": 74.465493}}
+{"target": 0.848, "params": {"batch_size": 61.68169872955909, "learning_rate": 0.009, "num_epochs": 5.0}, "datetime": {"datetime": "2024-12-11 12:53:11", "elapsed": 656.668126, "delta": 72.695702}}
+{"target": 0.8554, "params": {"batch_size": 56.517111024644244, "learning_rate": 0.009, "num_epochs": 1.0}, "datetime": {"datetime": "2024-12-11 12:53:29", "elapsed": 674.623281, "delta": 17.955155}}
+{"target": 0.86, "params": {"batch_size": 88.63579767182192, "learning_rate": 0.0023057892735798796, "num_epochs": 1.050776246492132}, "datetime": {"datetime": "2024-12-11 12:53:44", "elapsed": 689.948985, "delta": 15.325704}}
+{"target": 0.8358, "params": {"batch_size": 88.68191583630944, "learning_rate": 0.009, "num_epochs": 5.0}, "datetime": {"datetime": "2024-12-11 12:54:51", "elapsed": 756.058916, "delta": 66.109931}}
+{"target": 0.835, "params": {"batch_size": 121.14542720952035, "learning_rate": 0.006645642960848515, "num_epochs": 3.2265557347131826}, "datetime": {"datetime": "2024-12-11 12:55:31", "elapsed": 796.48472, "delta": 40.425804}}
+{"target": 0.8346, "params": {"batch_size": 38.0460806193934, "learning_rate": 0.009, "num_epochs": 5.0}, "datetime": {"datetime": "2024-12-11 12:56:56", "elapsed": 881.057146, "delta": 84.572426}}
+{"target": 0.8592, "params": {"batch_size": 92.19614851303362, "learning_rate": 0.001, "num_epochs": 1.0}, "datetime": {"datetime": "2024-12-11 12:57:12", "elapsed": 897.866178, "delta": 16.809032}}
