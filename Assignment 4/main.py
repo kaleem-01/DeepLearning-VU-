@@ -327,19 +327,19 @@ def main():
     max_patience = 20 # an early stopping is used, if training doesn't improve for longer than 20 epochs, it is stopped
 
     model = VAE(z_dim=32, device=device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    optimizer = torch.optim.Adam(model.parameters(), lr=3e-3)
     nll_val = training(name=result_dir + name, max_patience=max_patience, 
                     num_epochs=num_epochs, model=model, optimizer=optimizer,
                     training_loader=train_loader, val_loader=val_loader,
                     shape=(28,28))
 
     test_loss = evaluation(name=result_dir + name, test_loader=test_loader)
-    f = open(result_dir + name + '_test_loss.txt', "w")
+    f = open(result_dir + name + '_test_loss_lr_3e-3.txt', "w")
     f.write(str(test_loss))
     f.close()
 
     samples_real(result_dir + name, test_loader)
-    samples_generated(result_dir + name, test_loader, extra_name='_FINAL')
+    samples_generated(result_dir + name, test_loader, extra_name='_lr_3e-3')
 
     plot_curve(result_dir + name, nll_val)
 
